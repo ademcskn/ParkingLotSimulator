@@ -35,6 +35,5 @@ namespace ParkingLotSimulator.Business
             get { return ticketIssueDate; }
             set { ticketIssueDate = value; }
         }
-
     }
 }

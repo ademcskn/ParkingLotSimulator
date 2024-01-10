@@ -1,12 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
+using System.Linq; 
 
 namespace ParkingLotSimulator.Business
 {
@@ -53,12 +51,6 @@ namespace ParkingLotSimulator.Business
             return vehicleList.ToList().AsReadOnly();
         }
 
-        #region Developer Implementation
-        // Developer should add two methods here:
-        // First a method to add a new Vehicle variable to vehicleList
-        // Then a second one to remove an existing vehicle from vehicleList
-
-
         public static void AddVehicleToParking(Vehicle vehicle)
         {
             List<Vehicle> listVehicles = new List<Vehicle>();
@@ -70,9 +62,9 @@ namespace ParkingLotSimulator.Business
             listVehicles.Add(vehicle);
             var updatedJsonString = JsonConvert.SerializeObject(listVehicles);
             File.WriteAllText(ConfigurationManager.AppSettings.Get("VehicleListFilePath"), updatedJsonString);
-        } 
+        }
         public static void RemoveVehicleToParking(Vehicle vehicle)
-        { 
+        {
             List<Vehicle> listVehicles = new List<Vehicle>();
             foreach (var vehicleItem in new VehicleDataParser().VehicleList)
             {
@@ -82,8 +74,7 @@ namespace ParkingLotSimulator.Business
             listVehicles.Remove(vehicle);
             var updatedJsonString = JsonConvert.SerializeObject(listVehicles);
             File.WriteAllText(ConfigurationManager.AppSettings.Get("VehicleListFilePath"), updatedJsonString);
-             
+
         }
-        #endregion
     }
 }

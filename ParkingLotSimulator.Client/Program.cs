@@ -11,10 +11,6 @@ using System.Security.Cryptography;
 
 namespace ParkingLotSimulator.Client
 {
-    /*
-        Elimdem geldiğince hepsini tamamlamaya çalıştığımdan dolayı bazı yerleri eksik bırakarak devam etmem gerekti . Kullanıcıya tekrar sormak gibi...
-        En yakın zamanda tamamlayıp github hesabımda paylaşacağım. Teşekkürler. 
-     */
     class Program
     {
         static void Main(string[] args)
