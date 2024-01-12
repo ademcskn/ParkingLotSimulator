@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.IO;
-using System.Linq; 
+using System.Linq;
 
 namespace ParkingLotSimulator.Business
 {
@@ -71,10 +71,9 @@ namespace ParkingLotSimulator.Business
                 listVehicles.Add(vehicleItem);
             }
 
-            listVehicles.Remove(vehicle);
+            listVehicles.Remove(listVehicles.First(v => v.LicencePlate == vehicle.LicencePlate));
             var updatedJsonString = JsonConvert.SerializeObject(listVehicles);
             File.WriteAllText(ConfigurationManager.AppSettings.Get("VehicleListFilePath"), updatedJsonString);
-
         }
     }
 }

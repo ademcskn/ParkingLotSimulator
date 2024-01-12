@@ -28,7 +28,6 @@ namespace ParkingLotSimulator.Client
 
             if (validValues.Contains(clientInputValue))
             {
-
                 switch (clientInputValue)
                 {
                     case "1":
@@ -40,7 +39,6 @@ namespace ParkingLotSimulator.Client
                         }
                         break;
                     case "2":
-                        Console.WriteLine("2 tuşlandı");
                         Console.WriteLine("Lütfen aracın plakasını girin : ");
                         clientInputValue = Console.ReadLine();
                         int vehicleParkingMoney = VehicleParkingMoney(clientInputValue);
@@ -58,8 +56,7 @@ namespace ParkingLotSimulator.Client
                         }
                         break;
                     case "3":
-                        Console.WriteLine("3 tuşlandı");
-                        if (parkingCapacity.Count() == occupancy)
+                        if (Convert.ToInt32(parkingCapacity) <= occupancy)
                         {
                             Console.WriteLine("Otopark şu an dolu!!!");
                         }
