@@ -23,68 +23,76 @@ namespace ParkingLotSimulator.Client
             Console.WriteLine("\t1 - Otopark kapasitesi - Otoparktaki araçlar");
             Console.WriteLine("\t2 - Araç otopark ücreti ve Çıkış");
             Console.WriteLine("\t3 - Araç girişi");
-            var clientInputValue = Console.ReadLine();
+            var clientInputValue = "";
 
-
-            if (validValues.Contains(clientInputValue))
+            do
             {
-                switch (clientInputValue)
+                clientInputValue = Console.ReadLine();
+                if (validValues.Contains(clientInputValue))
                 {
-                    case "1":
-                        Console.WriteLine("Otopark doluluk oranı : " + occupancy + "/" + parkingCapacity);
-                        Console.WriteLine("Otoparktaki Araçların Listesi : ");
-                        foreach (var carInfo in parkingCarList)
-                        {
-                            Console.WriteLine("Plaka : " + carInfo.LicencePlate + " , Giriş Saati : " + carInfo.TicketIssueDate);
-                        }
-                        break;
-                    case "2":
-                        Console.WriteLine("Lütfen aracın plakasını girin : ");
-                        clientInputValue = Console.ReadLine();
-                        int vehicleParkingMoney = VehicleParkingMoney(clientInputValue);
-
-                        Console.WriteLine(clientInputValue + " Plakalı araç otopark fiyatı : " + vehicleParkingMoney + "TL");
-                        Console.WriteLine("Aracın çıkışı yapılsın mı? (E/H)");
-                        if (Console.ReadLine() == "E")
-                        {
-                            VehicleRepository.RemoveVehicleToParking(VehicleRepository.Current.RetrieveById(clientInputValue));
-                            Console.WriteLine("Aracın çıkışı yapıldı");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Çıkış yapılmadı.");
-                        }
-                        break;
-                    case "3":
-                        if (Convert.ToInt32(parkingCapacity) <= occupancy)
-                        {
-                            Console.WriteLine("Otopark şu an dolu!!!");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Lütfen giriş yapacak aracın plaka bilgisini 7 karakter olacak şekilde giriniz : ");
-                            string inputCarLicencePlate = Console.ReadLine();
-                            int sayi = inputCarLicencePlate.ToCharArray().Length;
-                            if (inputCarLicencePlate.ToCharArray().Length != 7)
+                    switch (clientInputValue)
+                    {
+                        case "1":
+                            Console.WriteLine("Otopark doluluk oranı : " + occupancy + "/" + parkingCapacity);
+                            Console.WriteLine("Otoparktaki Araçların Listesi : ");
+                            foreach (var carInfo in parkingCarList)
                             {
-                                Console.WriteLine("lütfen 7 karakter olarak giriş yapın");
+                                Console.WriteLine("Plaka : " + carInfo.LicencePlate + " , Giriş Saati : " + carInfo.TicketIssueDate);
+                            }
+                            break;
+                        case "2":
+                            Console.WriteLine("Lütfen aracın plakasını girin : ");
+                            clientInputValue = Console.ReadLine();
+                            int vehicleParkingMoney = VehicleParkingMoney(clientInputValue);
+
+                            Console.WriteLine(clientInputValue + " Plakalı araç otopark fiyatı : " + vehicleParkingMoney + "TL");
+                            Console.WriteLine("Aracın çıkışı yapılsın mı? (E/H)");
+                            if (Console.ReadLine() == "E")
+                            {
+                                VehicleRepository.RemoveVehicleToParking(VehicleRepository.Current.RetrieveById(clientInputValue));
+                                Console.WriteLine("Aracın çıkışı yapıldı");
                             }
                             else
                             {
-                                var newVehicle = new Vehicle();
-                                newVehicle.LicencePlate = inputCarLicencePlate;
-                                newVehicle.TicketIssueDate = DateTime.Now;
-                                VehicleRepository.AddVehicleToParking(newVehicle);
-
-                                Console.WriteLine("Araç Eklendi");
+                                Console.WriteLine("Çıkış yapılmadı.");
                             }
-                        }
-                        break;
-                    default:
-                        Console.WriteLine("Yanlış değer");
-                        break;
+                            break;
+                        case "3":
+                            if (Convert.ToInt32(parkingCapacity) <= occupancy)
+                            {
+                                Console.WriteLine("Otopark şu an dolu!!!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Lütfen giriş yapacak aracın plaka bilgisini 7 karakter olacak şekilde giriniz : ");
+                                string inputCarLicencePlate = Console.ReadLine();
+                                int sayi = inputCarLicencePlate.ToCharArray().Length;
+                                if (inputCarLicencePlate.ToCharArray().Length != 7)
+                                {
+                                    Console.WriteLine("lütfen 7 karakter olarak giriş yapın");
+                                }
+                                else
+                                {
+                                    var newVehicle = new Vehicle();
+                                    newVehicle.LicencePlate = inputCarLicencePlate;
+                                    newVehicle.TicketIssueDate = DateTime.Now;
+                                    VehicleRepository.AddVehicleToParking(newVehicle);
+
+                                    Console.WriteLine("Araç Eklendi");
+                                }
+                            }
+                            break;
+                        default:
+                            Console.WriteLine("Yanlış değer");
+                            break;
+                    }
                 }
-            }
+                else
+                {
+                    Console.WriteLine("Lütfen sadece programdaki işlemleri seçin!");
+                    Console.Write("Yapmak istediğiniz işlemi seçin : ");
+                }
+            } while (!validValues.Contains(clientInputValue));
 
             Console.ReadLine();
         }
