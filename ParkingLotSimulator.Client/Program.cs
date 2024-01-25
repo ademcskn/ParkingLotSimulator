@@ -55,18 +55,24 @@ namespace ParkingLotSimulator.Client
                         case "2":
                             Console.WriteLine("Lütfen aracın plakasını girin : ");
                             clientInputValue = Console.ReadLine();
-                            int vehicleParkingMoney = VehicleParkingMoney(clientInputValue);
-
-                            Console.WriteLine(clientInputValue + " Plakalı araç otopark fiyatı : " + vehicleParkingMoney + "TL");
-                            Console.WriteLine("Aracın çıkışı yapılsın mı? (E/H)");
-                            if (Console.ReadLine() == "E")
+                            if (parkingCarList.Where(c => c.LicencePlate == clientInputValue).Count() == 1)
                             {
-                                VehicleRepository.RemoveVehicleToParking(VehicleRepository.Current.RetrieveById(clientInputValue));
-                                Console.WriteLine("Aracın çıkışı yapıldı");
+                                int vehicleParkingMoney = VehicleParkingMoney(clientInputValue);
+                                Console.WriteLine(clientInputValue + " Plakalı araç otopark fiyatı : " + vehicleParkingMoney + "TL");
+                                Console.WriteLine("Aracın çıkışı yapılsın mı? (E/H)");
+                                if (Console.ReadLine() == "E")
+                                {
+                                    VehicleRepository.RemoveVehicleToParking(VehicleRepository.Current.RetrieveById(clientInputValue));
+                                    Console.WriteLine("Aracın çıkışı yapıldı");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Çıkış yapılmadı.");
+                                }
                             }
                             else
                             {
-                                Console.WriteLine("Çıkış yapılmadı.");
+                                Console.WriteLine("Araç bilgisi bulunamadı!");
                             }
                             ProcessCompleted();
                             UserOperations();
@@ -83,7 +89,7 @@ namespace ParkingLotSimulator.Client
                                 int sayi = inputCarLicencePlate.ToCharArray().Length;
                                 if (inputCarLicencePlate.ToCharArray().Length != 7)
                                 {
-                                    Console.WriteLine("lütfen 7 karakter olarak giriş yapın");
+                                    Console.WriteLine("Lütfen 7 karakter olarak giriş yapın");
                                 }
                                 else
                                 {
